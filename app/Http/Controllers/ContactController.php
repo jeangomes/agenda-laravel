@@ -54,7 +54,7 @@ class ContactController extends Controller
         $contact->telephone = $request->telephone;
         $contact->email = $request->email;
         if ($contact->save()) {
-            return redirect()->route('contato.index')
+            return redirect()->route('contact.index')
                 ->with([
                     'aviso' => 'Operação efetuada com sucesso!',
                     'type' => 'success'
@@ -81,7 +81,8 @@ class ContactController extends Controller
      */
     public function edit(Contact $contact)
     {
-        //
+        $title = 'Contatos - Alterar';
+        return view('contacts.edit')->with(compact(['contact', 'title']));
     }
 
     /**
@@ -93,7 +94,14 @@ class ContactController extends Controller
      */
     public function update(Request $request, Contact $contact)
     {
-        //
+        $input = $request->only('name', 'telephone', 'email');
+        $contact->fill($input);
+        if ($contact->save()) {
+            return redirect()->route('contact.index')->with([
+                'aviso' => 'Operação efetuada com sucesso, contato alterado!',
+                'type' => 'success'
+            ]);
+        }
     }
 
     /**
@@ -104,6 +112,12 @@ class ContactController extends Controller
      */
     public function destroy(Contact $contact)
     {
-        //
+        $contact_db = Contact::findOrFail($contact->id);
+        if ($contact_db->delete()) {
+            return redirect()->route('contact.index')->with([
+                'aviso' => 'Operação efetuada com sucesso, contato removido!',
+                'type' => 'success'
+            ]);
+        }
     }
 }

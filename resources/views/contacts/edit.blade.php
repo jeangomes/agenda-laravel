@@ -1,13 +1,10 @@
-@extends('layouts.admin_template')
+@extends('layout')
 @section('content')
-    {!! Form::model($area,['route' => ['area.update',$area->id],'class'=>'form-horizontal']) !!}
-        <input type="hidden" name="_method" value="PUT">
-        <div class="form-group">
-            {{ Form::bsText('nome',null,['required'=>true]) }}
-        </div>    
-        <div class="form-group">
-            {{ Form::bsSelect('coordenador',$pessoas,null,['required'=>true]) }}            
-        </div>    
-        {{ Form::bsSubmit('Salvar') }}
+    {!! Form::model($contact,['route' => ['contact.update',$contact->id],'class'=>'form-horizontal']) !!}
+    <input type="hidden" name="_method" value="PUT">
+    @include('contacts.form')
+    <div class="text-center">
+        {{ Form::submit('Salvar',['class'=>'btn btn-primary']) }}
+    </div>
     {!! Form::close() !!}
 @endsection

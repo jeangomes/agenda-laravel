@@ -1,7 +1,7 @@
 @extends('layout')
 @section('content')
-    @include('contacts.form-search',['acao'=>'contato.index'])
-    <a href="{{ route('contato.create') }}" class="btn btn-outline-success"><i class="fa fa-edit"></i> Cadastrar novo</a>
+    @include('contacts.form-search',['acao'=>'contact.index'])
+    <br>
     <table class="table table-bordered table-striped">
         <thead>
         <tr>
@@ -25,15 +25,15 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="btn btn-primary btn-sm btn-block"
-                                   href="{{ route('contato.show',$contact->id) }}"><span
+                                   href="{{ route('contact.show',$contact->id) }}"><span
                                             class="glyphicon glyphicon-list"></span> Visualizar</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a class="btn btn-warning btn-sm btn-block"
-                                   href="{{ route('contato.edit',$contact->id) }}"><span
+                                   href="{{ route('contact.edit',$contact->id) }}"><span
                                             class="glyphicon glyphicon-edit"></span> Editar</a></li>
                             <li role="separator" class="divider"></li>
                             <li>
-                                {!! Form::open(['method' => 'DELETE','route' => ['contato.destroy', $contact->id],'style'=>'display:inline']) !!}
+                                {!! Form::open(['method' => 'DELETE','route' => ['contact.destroy', $contact->id],'style'=>'display:inline']) !!}
                                 <button type="submit" style="display: inline;" class="btn btn-danger btn-sm btn-block">
                                     <span class="glyphicon glyphicon-trash"></span> Excluir
                                 </button>

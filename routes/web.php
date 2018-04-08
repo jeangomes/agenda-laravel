@@ -11,6 +11,6 @@
 |
 */
 
-Route::redirect('/', '/contato');
+Route::redirect('/', '/contact');
 
-Route::resource('contato', 'ContactController');
+Route::resource('contact', 'ContactController');

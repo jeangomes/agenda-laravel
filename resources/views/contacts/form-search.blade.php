@@ -1,4 +1,4 @@
-{!! Form::open(['route' => $acao??'contato.index','method' => 'get','class'=>'form-horizontal','autocomplete'=>'off']) !!}
+{!! Form::open(['route' => $acao??'contact.index','method' => 'get','class'=>'form-horizontal','autocomplete'=>'off']) !!}
 <fieldset>
     <input type="hidden" name="pesquisar" value="1">
     <div class="form-group">

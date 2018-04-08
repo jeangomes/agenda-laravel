@@ -8,14 +8,15 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Agenda') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
 <div id="app">
-    <a href="{{ route('contato.index') }}" class="btn btn-outline-success"><i class="fa fa-edit"></i> Contatos</a>
+    <a href="{{ route('contact.index') }}" class="btn btn-outline-success"><i class="fa fa-edit"></i> Listar Contatos</a>
+    <a href="{{ route('contact.create') }}" class="btn btn-outline-success"><i class="fa fa-edit"></i> Cadastrar Contato</a>
     <div class="container">
         @if (session('aviso'))
             <div class="alert alert-success">
