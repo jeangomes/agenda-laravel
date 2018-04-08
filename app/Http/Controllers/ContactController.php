@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Contact;
+use App\Filters\ContactFilters;
+use App\Repositories\ContactRepository;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
@@ -10,11 +12,15 @@ class ContactController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param ContactRepository $repository
+     * @param ContactFilters $filters
+     * @return mixed
      */
-    public function index()
+    public function index(ContactRepository $repository, ContactFilters $filters)
     {
-        //
+        $title = 'Contatos - Listar';
+        $contacts = $repository->getContacts($filters);
+        return view('contacts.index')->with(compact('contacts', 'title'));
     }
 
     /**
@@ -24,24 +30,42 @@ class ContactController extends Controller
      */
     public function create()
     {
-        //
+        $title = 'Contatos - Cadastrar';
+        return view('contacts.create')->with(compact('title'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'name' => 'required|max:200',
+            'telephone' => 'required|max:15',
+            'email' => 'required|unique:contacts|max:80',
+        ]);
+
+        $contact = new Contact;
+        $contact->name = $request->name;
+        $contact->telephone = $request->telephone;
+        $contact->email = $request->email;
+        if ($contact->save()) {
+            return redirect()->route('contato.index')
+                ->with([
+                    'aviso' => 'Operação efetuada com sucesso!',
+                    'type' => 'success'
+                ]);
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Contact  $contact
+     * @param  \App\Contact $contact
      * @return \Illuminate\Http\Response
      */
     public function show(Contact $contact)
@@ -52,7 +76,7 @@ class ContactController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Contact  $contact
+     * @param  \App\Contact $contact
      * @return \Illuminate\Http\Response
      */
     public function edit(Contact $contact)
@@ -63,8 +87,8 @@ class ContactController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Contact  $contact
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Contact $contact
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Contact $contact)
@@ -75,7 +99,7 @@ class ContactController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Contact  $contact
+     * @param  \App\Contact $contact
      * @return \Illuminate\Http\Response
      */
     public function destroy(Contact $contact)
