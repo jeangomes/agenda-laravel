@@ -1,5 +1,7 @@
 @extends('layout')
 @section('content')
+    @include('errors')
+    <br>
     {!! Form::model($contact,['route' => ['contact.update',$contact->id],'class'=>'form-horizontal']) !!}
     <input type="hidden" name="_method" value="PUT">
     @include('contacts.form')
