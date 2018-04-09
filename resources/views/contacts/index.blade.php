@@ -24,9 +24,6 @@
                             Ações <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="btn btn-primary btn-sm btn-block"
-                                   href="{{ route('contact.show',$contact->id) }}"><span
-                                            class="glyphicon glyphicon-list"></span> Visualizar</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a class="btn btn-warning btn-sm btn-block"
                                    href="{{ route('contact.edit',$contact->id) }}"><span
