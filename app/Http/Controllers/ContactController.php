@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contact;
 use App\Filters\ContactFilters;
+use App\Http\Requests\ContactRequest;
 use App\Repositories\ContactRepository;
 use Illuminate\Http\Request;
 
@@ -40,15 +41,8 @@ class ContactController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ContactRequest $request)
     {
-
-        $request->validate([
-            'name' => 'required|max:200',
-            'telephone' => 'required|max:15',
-            'email' => 'required|unique:contacts|max:80',
-        ]);
-
         $contact = new Contact;
         $contact->name = $request->name;
         $contact->telephone = $request->telephone;
@@ -92,7 +86,7 @@ class ContactController extends Controller
      * @param  \App\Contact $contact
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Contact $contact)
+    public function update(ContactRequest $request, Contact $contact)
     {
         $input = $request->only('name', 'telephone', 'email');
         $contact->fill($input);
